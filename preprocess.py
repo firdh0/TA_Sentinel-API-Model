@@ -91,28 +91,28 @@ def msg_preprocess_global(text):
     return text
 
 def url_preprocess_global(url):
-    url = url.lower()
+    # url = url.lower()
 
-    url = re.sub(r'https?://', '', url)
-    url = re.sub(r'www\.', '', url)
-    url = re.sub(r'\.+', ' ', url)
-    url = re.sub(r'[^a-zA-Z0-9\s]', ' ', url) #remove emoji
-    url = url.strip()
-    url = word_tokenize(url)
+    # url = re.sub(r'https?://', '', url)
+    # url = re.sub(r'www\.', '', url)
+    # url = re.sub(r'\.+', ' ', url)
+    # url = re.sub(r'[^a-zA-Z0-9\s]', ' ', url) #remove emoji
+    # url = url.strip()
+    # url = word_tokenize(url)
 
-    listStopwords = set(stopwords.words('english'))
-    filtered = []
-    for link in url:
-        if link not in listStopwords:
-            filtered.append(link)
-    url = filtered
+    # listStopwords = set(stopwords.words('english'))
+    # filtered = []
+    # for link in url:
+    #     if link not in listStopwords:
+    #         filtered.append(link)
+    # url = filtered
 
-    lemmatizer = WordNetLemmatizer()
-    lemmatized_text = []
-    for link in url:
-        lemmatized_text.append(lemmatizer.lemmatize(link))
+    # lemmatizer = WordNetLemmatizer()
+    # lemmatized_text = []
+    # for link in url:
+    #     lemmatized_text.append(lemmatizer.lemmatize(link))
 
-    url = ' '.join(lemmatized_text)
+    # url = ' '.join(lemmatized_text)
 
     return url
 
