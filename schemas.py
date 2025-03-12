@@ -12,5 +12,3 @@ class SessionName(BaseModel):
 
 class TokenUpdate(BaseModel):
     token: str
-
-    #ta-sentinel-cloud-sql: #R0ut326
