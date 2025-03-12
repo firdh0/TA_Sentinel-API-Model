@@ -73,18 +73,12 @@ async def update_token(token_update: TokenUpdate):
         return {"message": "Token updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update token: {str(e)}")
-    
-    # # Simpan atau perbarui token di database Anda
-    # if token_update.token not in device_tokens:
-    #     device_tokens.append(token_update.token)
-    # return {"message": "Token updated successfully"}
 
 
 @app.post("/webhook")
 async def handle_webhook(request: Request):
     try:
         data = await request.json()
-        # print(f"Status message: {data}\n")
         print(json.dumps(data, indent=4))
 
         if 'payload' in data:
@@ -93,12 +87,9 @@ async def handle_webhook(request: Request):
             if 'from' in payload and 'body' in payload:
                 pattern = r'(\d+)@c\.us'
                 _id = payload['id']
-                # print(f"id: {_id}")
                 match = re.search(pattern, _id)
-                # print(f"match: {match}")
                 sender = match.group(1)
                 print(f"sender: {sender}")
-                # sender = re.sub(r'')
                 sender = re.sub(r'[^0-9]', '', sender)
                 print(sender)
                 if sender.startswith('62'):
@@ -133,18 +124,6 @@ async def handle_webhook(request: Request):
                         print(device_tokens)
                         await send_notification(sender, nickname, message_body)
 
-                # elif not message_body and links:
-                #     url_payload = Url(text=[links])
-                #     url_phishing = url_payload.text
-                #     prediction_result = url_prediction(url_phishing)
-                #     result['url'] = {
-                #         "url_body": links,
-                #         "url_prediction": prediction_result
-                #     }
-
-                #     if not prediction_result[0]['is_phishing']:
-                #         await send_notification(sender, nickname, links)
-
                 else:
                     message_payload = Messages(text=[message_body])
                     text_phishing = message_payload.text
@@ -178,7 +157,7 @@ async def handle_webhook(request: Request):
                 "error": "'payload' key not found in data"
             })
     except Exception as e:
-        traceback.print_exc()  # This will print the traceback to the console
+        traceback.print_exc()  
         return JSONResponse(status_code=500, content={
             "error": str(e)
         })
